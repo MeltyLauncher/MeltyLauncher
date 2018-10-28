@@ -13,7 +13,7 @@ Usage
 
 Additional Information:
 - On your first-time using MeltyLauncher, it will ask you to locate the MBAA.exe file.
-- This can be found in your Steam installation, usually here:
+- This can be found in your Melty Blood installation, usually here:
   C:\Program Files (x86)\Steam\steamapps\common\MELTY BLOOD Actress Again Current Code\MBAA.exe
 
 
