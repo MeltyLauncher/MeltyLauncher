@@ -1,0 +1,2 @@
+Aut2exe.exe /in MeltyLauncher.au3 /out dist\MeltyLauncher.exe /icon MeltyLauncher.ico /comp 4
+Aut2exe.exe /in MeltyLauncher.au3 /out dist\MeltyLauncher_debug.exe /icon MeltyLauncher.ico /comp 4 /console
