@@ -59,7 +59,7 @@ EndFunc
 #include "LauncherPlayerConfig.au3"
 #include "LauncherGUI.au3"
 #include "LauncherHeaderImage.au3"
-#include "LauncherBackgroundImage.au3"
+; #include "LauncherBackgroundImage.au3"
 #include "LauncherDirectInput.au3"
 #include "Include\NoFocusLines.au3"
 
@@ -326,8 +326,9 @@ Func Init()
    Local $hHeaderPic = GUICtrlCreatePic("", $BG_X, 0, LauncherHeaderImage_GetWidth(), LauncherHeaderImage_GetHeight())
    LauncherHeaderImage_Apply($hHeaderPic)
 
-   Local $hBackgroundPic = GUICtrlCreatePic("", 0, $WINDOW_H - 329, $WINDOW_W, 329)
-   LauncherBackgroundImage_Apply($hBackgroundPic)
+   ; Disabling background image until new assets are ready
+   ; Local $hBackgroundPic = GUICtrlCreatePic("", 0, $WINDOW_H - 329, $WINDOW_W, 329)
+   ; LauncherBackgroundImage_Apply($hBackgroundPic)
 
    ; --------------------------------------------------------------------------
    ; Show GUI
