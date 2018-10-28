@@ -12,7 +12,7 @@ A controller configuration UI so players can quickly configure their controllers
 
 #### Usage
 - Run `MeltyLauncher.exe` to run **Melty Blood** through this launcher.
-  - If it is your first-time using **MeltyLauncher**, it will ask you to locate the **MBAA.exe** file. This can be found in your Steam installation, usually here: `C:\Program Files (x86)\Steam\steamapps\common\MELTY BLOOD Actress Again Current Code\MBAA.exe`
+  - If it is your first-time using **MeltyLauncher**, it will ask you to locate the **MBAA.exe** file. This can be found in your Melty Blood installation, usually here: `C:\Program Files (x86)\Steam\steamapps\common\MELTY BLOOD Actress Again Current Code\MBAA.exe`
 - With your controller plugged in, follow the on-screen prompts to set your bindings.
 - Press `SPACE` on your keyboard when done configuring bindings.
 
