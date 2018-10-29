@@ -7,7 +7,7 @@ A controller configuration UI so players can quickly configure their controllers
 #### Requirements
 
 - Have **Melty Blood** installed.
-- Download `MeltyLauncher.zip` from the [our Latest Release](https://github.com/MeltyLauncher/MeltyLauncher/releases/latest).
+- Download `MeltyLauncher.zip` from [the Latest Release](https://github.com/MeltyLauncher/MeltyLauncher/releases/latest).
 - Extract `MeltyLauncher.exe` anywhere on your computer.
 
 #### Usage
