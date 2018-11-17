@@ -16,6 +16,12 @@
 #include "LauncherConfig.au3"
 LauncherConfig_Load()
 
+Global Const $DETAIL_DEBUG = 0
+
+Func LogDebug($str)
+   If $DETAIL_DEBUG Then ConsoleWrite($str)
+EndFunc
+
 ; -----------------------------------------------------------------------
 ; If special Launch Mode:
 ; If the script is invoked with a single command line parameter of "1"
@@ -106,8 +112,6 @@ Global Const $BUTTON_LABELS = [ _
 Local Const $WINDOW_W = 600
 Local Const $WINDOW_H = 520
 
-; Global Const $BG_W = 409
-; Global Const $BG_H = 140
 Global Const $BG_X = 98
 
 Local Const $PLAYER_OFFSET_X_STEP = $WINDOW_W / $NUM_PLAYERS
@@ -837,12 +841,18 @@ CheckProperties()
 ; Start up the GUI
 Init()
 
+Local $loop = 1
+
 ; Start the main loop for the GUI
 ; Note: When MBAA.exe is launched, the main loop gets paused/blocked when it calls RunMelty()
 while 1
 
+   $loop = $loop + 1
+   LogDebug("Loop:" & $loop & @CRLF)
+
    ; If ESC is pressed, exit the app
    Local $msg = GUIGetMSG()
+
    Switch ($msg)
 	  Case $GUI_EVENT_CLOSE, $btnExit
 		 ExitLoop
@@ -856,6 +866,7 @@ while 1
 		 Complete()
    EndSwitch
 
+   ; Fires when MouseClick on a player box (triggers their reset)
    For $p = 0 to $NUM_PLAYERS - 1
 	  If $msg == $btnPlayerController[$p] Then
 		 ResetPlayer($p)
@@ -863,11 +874,13 @@ while 1
    Next
 
    ; Check what sticks are connected
+   LogDebug("   DIScanSticks()" & @CRLF)
    DIScanSticks()
 
    ; If a stick was unplugged that was bound to a player, reset that player
    For $p = 0 to $NUM_PLAYERS - 1
 	 If $playerStick[$p] AND DIIndex($playerStick[$p]) < 0 Then
+		LogDebug("   ResetPlayer(" & $p & ")" & @CRLF)
 		ResetPlayer($p)
 	 EndIf
    Next
@@ -875,12 +888,18 @@ while 1
    ; If space button was pressed and all buttons are bound, we're ready to startup MBAA
    If ($complete > 0) Then
 	  ; Make sure we stop reading DirectInput on the sticks
+	  LogDebug("   DIUnacquire()" & @CRLF)
 	  DIUnaquire()
+
 	  ; Write the button config file
+	  ConsoleWrite("  Saving config" & @CRLF)
 	  LauncherPlayerConfig_Save($iniPath)
+
 	  ; Hide the GUI until MBAA is closed
 	  Hide()
+
 	  ; Launch MBAA (blocks until MBAA process is closed)
+	  ConsoleWrite("  Launching game" & @CRLF)
 	  If RunMelty() Then
 		 ;reset flag
 		 $complete = 0
@@ -895,6 +914,7 @@ while 1
    ; Check if each player is pressing a button, and bind it
    For $p = 0 To $NUM_PLAYERS - 1
 	  If $playerStick[$p] Then
+		 LogDebug("   updatePlayer(" & $p & ")" & @CRLF)
 		 updatePlayer($p)
 	  EndIf
    Next
@@ -902,6 +922,7 @@ while 1
    ; If a player is not bound to a stick yet, check if they press a button
    For $p = 0 To $NUM_PLAYERS - 1
 	  If NOT $playerStick[$p] Then
+		 LogDebug("   bindPlayer(" & $p & ")" & @CRLF)
 		 bindPlayer($p)
 		 ExitLoop
 	  EndIf

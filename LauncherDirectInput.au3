@@ -110,20 +110,21 @@ Func DIAdd($deviceInterface, $deviceName, $deviceGuid, $deviceOrder)
 		 GetRanges($deviceInterface)
 		 $tmpDevice = -1
 		 DIReadButton($i)
-		 ;ConsoleWrite("Added " & $i & @CRLF)
+		 ConsoleWrite("Device Detected (Slot: " & $i & ") '" & $deviceName & "'" & @CRLF)
 		 Return $i
 	  EndIf
    Next
    Return -1
 EndFunc
 
+Local $hEnumObjectsCallback = DllCallbackRegister("EnumObjectsCallback", "bool", "ptr;ptr")
+Local $ptrEnumObjectsCallback = DllCallbackGetPtr($hEnumObjectsCallback)
+
 ; Lookup all the buttons/axes on the device and calibrate for their min/max ranges
 ; Calls the EnumObjectsCallback function
 ; @param oDevice - the deviceInterface instance
 Func GetRanges($oDevice)
-   Local $hCallback = DllCallbackRegister("EnumObjectsCallback", "bool", "ptr;ptr")
-   $oDevice.EnumObjects(DllCallbackGetPtr($hCallback), 0, 0)
-   DllCallbackFree($hCallback)
+   $oDevice.EnumObjects($ptrEnumObjectsCallback, 0, 0)
 EndFunc
 
 ; Lookup the $device array index by the device's guid
@@ -373,6 +374,9 @@ EndFunc
 ; True -> Sticks were changed
 ; False -> Sticks not changed
 Local $orderCounter = 0
+Local $hDILoadCallback = DllCallbackRegister("DILoadCallback", "bool", "ptr;ptr")
+Local $ptrDILoadCallback = DllCallbackGetPtr($hDILoadCallback)
+
 Func DIScanSticks()
 
    ; Mark sticks as dirty
@@ -386,9 +390,7 @@ Func DIScanSticks()
 
    $orderCounter = 0
 
-   Local $hDILoadCallback = DllCallbackRegister("DILoadCallback", "bool", "ptr;ptr")
-   $oIDirectInput8.EnumDevices($DI8DEVCLASS_GAMECTRL, DllCallbackGetPtr($hDILoadCallback), 0, $DIEDFL_ATTACHEDONLY)
-   DllCallbackFree($hDILoadCallback)
+   $oIDirectInput8.EnumDevices($DI8DEVCLASS_GAMECTRL, $ptrDILoadCallback, 0, $DIEDFL_ATTACHEDONLY)
 
    ; Remove unused sticks
    Local $activeCountAfter = 0
