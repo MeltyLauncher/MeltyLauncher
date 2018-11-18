@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  meltylauncher:
+    image: cordb/aut2exe:3.3.14.5
+    volumes:
+      - type: bind
+        source: .
+        target: C:\MeltyLauncher
+    working_dir: C:\MeltyLauncher
+    entrypoint: [ "compile.bat" ]

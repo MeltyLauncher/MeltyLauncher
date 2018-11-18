@@ -34,3 +34,10 @@ The compile script assumes `Aut2exe.exe` is in your Windows `PATH`. To configure
 
 - Run `compile.bat` from this project's directory.
 - `MeltyLauncher.exe` will be compiled and save in the `dist` directory.
+
+#### Building the Executable (in Docker)
+
+This alternative compilation approach will build the project using a Docker container. No installation of AutoIt is required. Docker must be installed and configured to run Windows containers.
+
+- Run `docker-compose up` from this project's directory.
+- `MeltyLauncher.exe` will be compiled and save in the `dist` directory.
