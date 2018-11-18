@@ -1,5 +1,14 @@
+# 
+# Usage:
+#   docker-compose up
+#
+# Description:
+#   This will start a docker container to run the 'compile.bat' script.
+#
+#
+# Requires docker to be running in Windows container mode
+#
 version: "3.7"
-
 services:
   meltylauncher:
     image: cordb/aut2exe:3.3.14.5
